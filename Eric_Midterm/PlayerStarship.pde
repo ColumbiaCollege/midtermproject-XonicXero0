@@ -71,7 +71,7 @@ class Starship {
 
     //makes ship face the mouse at all times (gotten mainly from API)
     translate(width/2, height/2);
-    float a = atan2(mouseY-height/2, mouseX-width/2);
+    float a = atan2(mouseY-yPos, mouseX-xPos);
     rotate(a);
 
     //ship body
