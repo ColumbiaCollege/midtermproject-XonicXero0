@@ -5,17 +5,14 @@ class Starship {
   //variables for position
   float xPos =0;
   float yPos =0;
-  //UDLR booleans
-  boolean forward = false;
-  boolean backward = false;
-  boolean left = false;
-  boolean right = false;
+  float easing = 0.01;
+  boolean move = false;
 
-  //Constructor 
-  Starship() {
+    //Constructor 
+    Starship() {
     //initial position
-    xPos = 0;
-    yPos = 0;
+    xPos = width/2;
+    yPos = height/2;
   }
 
   //methods 
@@ -24,21 +21,28 @@ class Starship {
 
     //movement
 
-    if (forward) {
-      yPos = yPos -1;
+    //
+    float targetX = mouseX;
+    
+    //
+    float targetY = mouseY;
+    
+    if (move) {
+     if(xPos > targetX){
+       xPos-=2;
+     }  if(xPos < targetX){
+       xPos+=2;
+     } 
+     
+     if(yPos > targetY){
+       yPos-=2;
+     }  if(yPos < targetY){
+       yPos+=2;
+     }
+     
     }
+    
 
-    if (backward) {
-      yPos = yPos +1;
-    }
-
-    if (left) {
-      xPos = xPos -1;
-    }
-
-    if (right) {
-      xPos = xPos +1;
-    }
 
     //code that makes ball stay on screen
 
@@ -70,19 +74,21 @@ class Starship {
     noStroke();
 
     //makes ship face the mouse at all times (gotten mainly from API)
-    translate(width/2, height/2);
+    translate(xPos, yPos);
     float a = atan2(mouseY-yPos, mouseX-xPos);
     rotate(a);
+    fill(255);
+    line(0, 0, 40, 0);
 
     //ship body
     fill(#C8C9CE);
-    triangle(xPos-9, yPos+10, xPos, yPos-20, xPos+9, yPos+10);
-    ellipse(xPos, yPos, 20, 11);
+    triangle(-10, -10, 30, 0, -10, 10);
+    ellipse(0, 0, 11, 20);
 
     //cockpit
     fill(#95F4FF);
-    ellipse(xPos, yPos, 10, 15);
+    ellipse(0, 0, 15, 10);
 
-    println(xPos);
+    //println();
   }
 }

@@ -5,7 +5,8 @@
 Starship Player;
 
 void setup() {
-  size(1200, 800);
+  size(1200,800);
+  //fullScreen();
   background(0);
   Player = new Starship();
 }
@@ -19,39 +20,17 @@ void draw() {
 }
 
 void keyPressed() {
-  //moves left
-  if (key == 'a') {
-    Player.left = true;
-  }
-  //moves right 
-  if (key == 'd') {
-    Player.right = true;
-  } 
-  //moves up
+  //moves
   if (key == 'w') {
-    Player.forward = true;
-  } 
-  //moves down
-  if (key == 's') {
-    Player.backward = true;
+    Player.move = true;
   }
+
 }
 
 void keyReleased() {
-  //stops right
-  if (key == 'a') {
-    Player.left = false;
-  }
-  //stops right 
-  if (key == 'd') {
-    Player.right = false;
-  } 
-  //stops forward
+  //stops 
   if (key == 'w') {
-    Player.forward = false;
-  } 
-  //stops backward
-  if (key == 's') {
-    Player.backward = false;
+    Player.move = false;
   }
+  
 }
