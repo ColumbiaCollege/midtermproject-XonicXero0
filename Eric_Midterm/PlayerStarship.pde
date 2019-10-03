@@ -3,91 +3,93 @@ class Starship {
   //properties 
 
   //variables for position
-  float xPos =0;
-  float yPos =0;
+  float playerX =0;
+  float playerY =0;
   float easing = 0.01;
-  boolean move = false;
+  boolean thrust = false;
 
-    //Constructor 
-    Starship() {
+  //Constructor 
+  Starship() {
     //initial position
-    xPos = width/2;
-    yPos = height/2;
+    playerX = width/2;
+    playerY = height/2;
   }
 
   //methods 
 
-  void move() {
+  void playerMove() {
 
     //movement
 
     //
     float targetX = mouseX;
-    
+
     //
     float targetY = mouseY;
-    
-    if (move) {
-     if(xPos > targetX){
-       xPos-=2;
-     }  if(xPos < targetX){
-       xPos+=2;
-     } 
-     
-     if(yPos > targetY){
-       yPos-=2;
-     }  if(yPos < targetY){
-       yPos+=2;
-     }
-     
-    }
-    
 
+    if (thrust) {
+      if (playerX > targetX) {
+        playerX-=2;
+      }  
+      if (playerX < targetX) {
+        playerX+=2;
+      } 
 
-    //code that makes ball stay on screen
-
-    //makes ball reappear on right side if it moves too far to the left
-    if (xPos == -10) {
-      xPos = 1209;
+      if (playerY > targetY) {
+        playerY-=2;
+      }  
+      if (playerY < targetY) {
+        playerY+=2;
+      }
     }
 
-    //makes ball reappear on left side if it moves too far to the right
-    if (xPos == 1210) {
-      xPos = -9;
-    }
-
-    //makes ball reappear on bottom if it moves too far up
-    if (yPos == -10) {
-      yPos = 809;
-    }
-
-    //makes ball reappear on tope if it moves too far down
-    if (yPos == 810) {
-      yPos = -9;
+    //code that makes it so player cannot go behind/under status bar
+    if (playerY < height/13) {
+      playerY = height/13;
     }
   }
 
-  void Playerdraw() {
+  void playerDraw() {
 
-    //shape properties
+    //makes ship face the mouse at all times (gotten mainly from API)
+    translate(playerX, playerY);
+    float a = atan2(mouseY-playerY, mouseX-playerX);
+    rotate(a);
+
+    //modes for players starship drawing
     ellipseMode(CENTER);
     noStroke();
 
-    //makes ship face the mouse at all times (gotten mainly from API)
-    translate(xPos, yPos);
-    float a = atan2(mouseY-yPos, mouseX-xPos);
-    rotate(a);
-    fill(255);
-    line(0, 0, 40, 0);
+    //fuel tanks
+    fill(#FFAE43);
+    ellipse(0, 0, 23, 15);
 
-    //ship body
-    fill(#C8C9CE);
-    triangle(-10, -10, 30, 0, -10, 10);
-    ellipse(0, 0, 11, 20);
+    //starship body
+    fill(#DEDEDE);
+    triangle(-7, -7, -7, 7, 25, 0);
+    triangle(-7, -12, -7, 12, 7, 0);
+    triangle(-7, -12, -7, 12, -9, 0);
+
+    //thrust if ship is moving 
+    if (thrust) {
+      fill(#FF9864);
+      triangle(-12, -7, -12, 7, -25, 0);
+      fill(#F08C22);
+      triangle(-11, -5, -11, 5, -23, 0);
+    }
+
+    //thruster
+    fill(#2C2C2C);
+    triangle(-6, -7, -14, -8, -14, 8);
+    triangle(-6, 7, -14, -8, -14, 8);
 
     //cockpit
-    fill(#95F4FF);
-    ellipse(0, 0, 15, 10);
+    fill(#C1C106);
+    triangle(5, 0, -4, -4, -4, 4);
+
+    //resets modes
+    ellipseMode(CORNERS);
+    stroke(0);
 
     //println();
   }
