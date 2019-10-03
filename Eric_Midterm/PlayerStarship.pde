@@ -5,7 +5,7 @@ class Starship {
   //variables for position
   float playerX =0;
   float playerY =0;
-  float easing = 0.01;
+
   boolean thrust = false;
 
   //Constructor 
@@ -61,7 +61,7 @@ class Starship {
     noStroke();
 
     //fuel tanks
-    fill(#FFAE43);
+    fill(#A74507);
     ellipse(0, 0, 23, 15);
 
     //starship body
