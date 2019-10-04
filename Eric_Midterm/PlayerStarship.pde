@@ -50,13 +50,13 @@ class Starship {
     }
 
     //code that makes the ship move to the mouse position when thrusters are activated
-    if (thrust) {
+    if (thrust && abs( targetX - playerX ) > 1 && abs( targetY - playerY ) > 1 ) {
       playerX += playerSpeed*cos(a);
       playerY += playerSpeed*sin(a);
     }
 
     //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
-    if (targetX == playerX && targetY == playerY) {
+    if ( abs( targetX - playerX ) < 2 && abs( targetY - playerY ) < 2  ) {
       thrust = false;
       boost = false;
     }

@@ -3,8 +3,10 @@
 
 //Declar Player's Starship
 Starship Player;
+//systems!
+int systems = 0;
 
-//possible systems
+//possible systems that can appear on UI
 String SA = "System 001";
 String SB = "System 002";
 String SC = "System 003";
@@ -20,26 +22,49 @@ void setup() {
 }
 
 void draw() {
-  //resets background
-  background(#030303);
-  
-  //system location
-  //???
 
-  drawStar(236, 255, 50, width/3, height/1.5, width/10);
+  switch(systems) {
 
-  drawStar(207, 246, 203, width/1.2, height/6, width/20);
+  case 0:
 
-  pushMatrix();
+    //resets background
+    background(#030303);
 
-  //ship
-  Player.playerDraw();
+    drawStar(236, 255, 50, width/3, height/1.5, width/10);
 
-  //move
-  Player.playerMove();
+    drawStar(207, 246, 203, width/1.2, height/6, width/20);
 
-  popMatrix();
+    pushMatrix();
 
+    //ship
+    Player.playerDraw();
+
+    //move
+    Player.playerMove();
+
+    popMatrix();
+
+    break;
+
+  case 1:
+
+    //resets background
+    background(#030303);
+    
+    drawStar(255, 161, 126, width/4, height/3, width/8);
+
+    pushMatrix();
+
+    //ship
+    Player.playerDraw();
+
+    //move
+    Player.playerMove();
+
+    popMatrix();
+
+    break;
+  }
 
   //Player Starship Info! (Currancy, Health, Energy, ETC.)
 
@@ -76,8 +101,14 @@ void keyPressed() {
   if (key == 'w') {
     Player.thrust = true;
   }
+  //boosts
   if (key == ' ') {
     Player.boost = true;
+  }
+  //test for switch
+  if (key == '1') {
+    systems++;
+    
   }
 }
 //code for deactivating movement 
@@ -86,10 +117,14 @@ void keyReleased() {
   if (key == 'w') {
     Player.thrust = false;
   }
+  //stops boost
   if (key == ' ') {
     Player.boost = false;
   }
 }
+
+
+
 
 //fun method for making stars easy
 void drawStar(float tempR, float tempG, float tempB, float tempX, float tempY, float dia) {
