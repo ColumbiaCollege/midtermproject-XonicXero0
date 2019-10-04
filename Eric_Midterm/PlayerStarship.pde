@@ -5,8 +5,11 @@ class Starship {
   //variables for position
   float playerX =0;
   float playerY =0;
-
+  //variable for player speed
+  float playerSpeed =0;
+  //booleans for ship movement 
   boolean thrust = false;
+  boolean boost = false;
 
   //Constructor 
   Starship() {
@@ -27,20 +30,37 @@ class Starship {
     //
     float targetY = mouseY;
 
+    //player speed when thrusting
+    if (thrust) {
+      playerSpeed = 2;
+    }
+
+    //player speed when boosting 
+    if (boost) {
+      playerSpeed = 3;
+    }
+
+    //code that makes the ship move to the mouse position when thrusters are activated
     if (thrust) {
       if (playerX > targetX) {
-        playerX-=2;
+        playerX-=playerSpeed;
       }  
       if (playerX < targetX) {
-        playerX+=2;
+        playerX+=playerSpeed;
       } 
 
       if (playerY > targetY) {
-        playerY-=2;
+        playerY-=playerSpeed;
       }  
       if (playerY < targetY) {
-        playerY+=2;
+        playerY+=playerSpeed;
       }
+    }
+
+    //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
+    if (targetX == playerX && targetY == playerY) {
+      thrust = false;
+      boost = false;
     }
 
     //code that makes it so player cannot go behind/under status bar
@@ -76,6 +96,14 @@ class Starship {
       triangle(-12, -7, -12, 7, -25, 0);
       fill(#F08C22);
       triangle(-11, -5, -11, 5, -23, 0);
+    }
+
+    //super thrust is the ship is boosting 
+    if (thrust && boost) {
+      fill(#CEFBFF);
+      triangle(-12, -7, -12, 7, -30, 0);
+      fill(#83F4FF);
+      triangle(-11, -5, -11, 5, -25, 0);
     }
 
     //thruster
