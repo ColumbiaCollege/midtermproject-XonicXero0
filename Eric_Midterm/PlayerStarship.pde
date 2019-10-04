@@ -6,10 +6,19 @@ class Starship {
   float playerX =0;
   float playerY =0;
   //variable for player speed
-  float playerSpeed =0;
+  float a;
+  float playerSpeed;
+  //variables for UI(Health, Energy, and Resources)(Not USED YET)
+  float playerHealth;
+  float playerEnergy;
+  float playerCash;
+  float playerAmmo;
+  float playerOre;
+  float playerKnowledge;
   //booleans for ship movement 
   boolean thrust = false;
   boolean boost = false;
+
 
   //Constructor 
   Starship() {
@@ -32,7 +41,7 @@ class Starship {
 
     //player speed when thrusting
     if (thrust) {
-      playerSpeed = 2;
+      playerSpeed = 1;
     }
 
     //player speed when boosting 
@@ -42,19 +51,8 @@ class Starship {
 
     //code that makes the ship move to the mouse position when thrusters are activated
     if (thrust) {
-      if (playerX > targetX) {
-        playerX-=playerSpeed;
-      }  
-      if (playerX < targetX) {
-        playerX+=playerSpeed;
-      } 
-
-      if (playerY > targetY) {
-        playerY-=playerSpeed;
-      }  
-      if (playerY < targetY) {
-        playerY+=playerSpeed;
-      }
+      playerX += playerSpeed*cos(a);
+      playerY += playerSpeed*sin(a);
     }
 
     //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
@@ -73,7 +71,7 @@ class Starship {
 
     //makes ship face the mouse at all times (gotten mainly from API)
     translate(playerX, playerY);
-    float a = atan2(mouseY-playerY, mouseX-playerX);
+    a = atan2(mouseY-playerY, mouseX-playerX);
     rotate(a);
 
     //modes for players starship drawing

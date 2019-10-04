@@ -1,5 +1,5 @@
 //Eric Price's Midterm Project!
-//SOLAR SAILING (game name?)
+//SOLAR SAILING 
 
 //Declar Player's Starship
 Starship Player;
