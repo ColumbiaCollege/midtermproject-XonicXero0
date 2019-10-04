@@ -50,16 +50,17 @@ class Starship {
     }
 
     //code that makes the ship move to the mouse position when thrusters are activated
-    if (thrust && abs( targetX - playerX ) > 1 && abs( targetY - playerY ) > 1 ) {
+    //weird pausing issue && abs( targetX - playerX ) > 1 && abs( targetY - playerY ) > 1 
+    if (thrust) {
       playerX += playerSpeed*cos(a);
       playerY += playerSpeed*sin(a);
     }
 
     //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
-    if ( abs( targetX - playerX ) < 2 && abs( targetY - playerY ) < 2  ) {
-      thrust = false;
-      boost = false;
-    }
+    //if ( abs( targetX - playerX ) < 1 && abs( targetY - playerY ) < 1  ) {
+    //thrust = false;
+    //boost = false;
+    //}
 
     //code that makes it so player cannot go behind/under status bar
     if (playerY < height/13) {
@@ -68,6 +69,8 @@ class Starship {
   }
 
   void playerDraw() {
+
+    pushMatrix();
 
     //makes ship face the mouse at all times (gotten mainly from API)
     translate(playerX, playerY);
@@ -117,6 +120,36 @@ class Starship {
     ellipseMode(CORNERS);
     stroke(0);
 
+    popMatrix();
+
     //println();
+     //Player Starship Info! (Currancy, Health, Energy, ETC.)
+
+  //status/health/controls/etc bar
+  stroke(#4B4A4A);
+  strokeWeight(2);
+  fill(#818181);
+  rect(0, 0, width, height/13); 
+
+  //SYSTEM INFO
+  fill(200);
+  rect(width/3, height/175, width/3, height/15);
+
+  //SYSTEM NAME
+  fill(255);
+  textAlign(CENTER);
+  textSize(width/50);
+  text(SA, width/2, height/17);
+
+  //health bar
+  fill(255, 0, 0);
+  rect(width/1.34, height/175, width/4, height/35);
+  //energy bar
+  fill(0, 100, 255);
+  rect(width/1.34, height/25, width/4, height/35);
+
+  //resets stroke values
+  strokeWeight(0);
+  stroke(0);
   }
 }
