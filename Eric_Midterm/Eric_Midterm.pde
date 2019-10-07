@@ -19,6 +19,15 @@ float playerEnergy;
 //float playerAmmo;
 //float playerOre;
 //float playerKnowledge;
+//system info
+String[]systemInfo = new String[5];{
+systemInfo[0] = "Home System";
+systemInfo[1] = "Bazelgeuse System";
+systemInfo[2] = "Drake System";
+systemInfo[3] = "CLand System";
+systemInfo[4] = "TwinE System";
+}
+String sI; 
 
 //declare other shit
 Star sun, bazelgeuse, whiteS, cStar, eleonora, evelyn;
@@ -67,7 +76,7 @@ void setup() {
   Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25);
   Greengas = new Starobj(width/5, height/2, width/13, width/13);
   Dune = new Starobj(width/1.2, height/7, width/24, width/24);
-  Luxship = new Starobj(width/1.2, height/1.2, width/7, height/13);
+  Luxship = new Starobj(width/1.2, height/1.2, width/10, height/13);
 }
 
 void draw() {
@@ -130,6 +139,18 @@ void draw() {
     //resets background
     background(#030303);
 
+    //background stars
+    for (int t = 0; t < width; t=t+50) {
+      float r = random (height);
+
+      strokeWeight(0);
+      stroke(0);
+      fill(255);
+      rect(0+t, 0+r, 2, 2);
+    }
+    
+    sI = systemInfo[0];
+
     //methods for star
     sun.drawStar();
 
@@ -159,6 +180,19 @@ void draw() {
     //resets background
     background(#150D0D);
 
+    //background stars
+    for (int t = 0; t < width; t=t+80) {
+      float r = random (height);
+
+
+      strokeWeight(0);
+      stroke(0);
+      fill(255);
+      rect(0+t, 0+r, 2, 2);
+    }
+    
+    sI = systemInfo[1];
+
     bazelgeuse.drawStar();
 
     //Staronj methods 
@@ -186,6 +220,18 @@ void draw() {
 
     //resets background
     background(#030303);
+
+    //background stars
+    for (int t = 0; t < width; t=t+50) {
+      float r = random (height);
+
+      strokeWeight(0);
+      stroke(0);
+      fill(255);
+      rect(0+t, 0+r, 2, 2);
+    }
+    
+     sI = systemInfo[2];
 
     whiteS.drawStar();
 
@@ -216,6 +262,18 @@ void draw() {
 
     //resets background
     background(#030303);
+
+    //background stars
+    for (int t = 0; t < width; t=t+50) {
+      float r = random (height);
+
+      strokeWeight(0);
+      stroke(0);
+      fill(255);
+      rect(0+t, 0+r, 2, 2);
+    }
+    
+     sI = systemInfo[3];
 
     cStar.drawStar();
 
@@ -249,6 +307,18 @@ void draw() {
     //resets background
     background(#030303);
 
+    //background stars
+    for (int t = 0; t < width; t=t+50) {
+      float r = random (height);
+
+      strokeWeight(0);
+      stroke(0);
+      fill(255);
+      rect(0+t, 0+r, 2, 2);
+    }
+    
+     sI = systemInfo[4];
+
     eleonora.drawStar();
 
     evelyn.drawStar();
@@ -264,7 +334,7 @@ void draw() {
     Luxship.objDraw();
 
     Luxship.objMove(-width/1200, 0);
-    
+
     //UI
     Player.playerUI();
 
@@ -292,6 +362,7 @@ void keyPressed() {
   if (key == '1') {
     playerX = width/2;
     playerY = height/2;
+    playerEnergy = playerEnergy - 10;
     systems = 0;
   }
 }

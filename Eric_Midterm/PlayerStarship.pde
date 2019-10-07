@@ -70,7 +70,7 @@ class Starship {
     fill(255);
     textAlign(CENTER);
     textSize(width/50);
-    text("System Info", width/2, height/17);
+    text(sI, width/2, height/17);
 
     //health bar
     stroke(#4B4A4A);
