@@ -8,7 +8,6 @@ class Starship {
 
   //Constructor 
   Starship() {
-    
   }
 
   //methods 
@@ -23,14 +22,16 @@ class Starship {
     //
     float targetY = mouseY;
 
-    //player speed when thrusting
+    //player speed when thrusting and energy cost
     if (thrust) {
-      playerSpeed = 1;
+      playerSpeed = 1; 
+      playerEnergy = playerEnergy - 0.001;
     }
 
-    //player speed when boosting 
+    //player speed when boosting and energy cost
     if (boost) {
       playerSpeed = 3;
+      playerEnergy = playerEnergy - 0.005;
     }
 
     //code that makes the ship move to the mouse position when thrusters are activated
@@ -54,6 +55,7 @@ class Starship {
 
   void playerUI() {
     //Player Starship Info! (Currancy, Health, Energy, ETC.
+    
     //status/health/controls/etc bar
     stroke(#4B4A4A);
     strokeWeight(2);
@@ -71,15 +73,30 @@ class Starship {
     text("System Info", width/2, height/17);
 
     //health bar
+    stroke(#4B4A4A);
+    strokeWeight(4);
+    fill(#818181);
+    rect(width/1.34, height/175, width/4, height/35);
+    
+    strokeWeight(0);
+    stroke(0);
     fill(255, 0, 0);
     rect(width/1.34, height/175, width/4, height/35);
+
     //energy bar
+    stroke(#4B4A4A);
+    strokeWeight(4);
+    fill(#818181);
+    rect(width/1.34, height/25, width/4, height/35);
+    
+    strokeWeight(0);
+    stroke(0);
     fill(0, 100, 255);
     rect(width/1.34, height/25, width/4, height/35);
 
-    //resets stroke values
     strokeWeight(0);
     stroke(0);
+    
   }
 
   void playerDraw() {

@@ -30,24 +30,31 @@ class Starobj {
 
   //allows for an object (like a spaceship) to move
   void objMove(float xS, float yS) {
-  objX = objX + xS;
-  objY = objY + yS;
-  
-  //makes ships reappear if offscreen
-  
-  if(objY < -200){
-    objY = height + 200; 
+    objX = objX + xS;
+    objY = objY + yS;
+
+    //makes ships reappear if offscreen
+
+    if (objY < -400) {
+      objY = height + 400;
+    }
+    if (objY > height + 400) {
+      objY = -400;
+    }
+    if (objX < -400) {
+      objX = width + 400;
+    }
+    if (objX > width + 400) {
+      objX = -400;
+    }
   }
-  if(objY > height + 200){
-    objY = -200; 
+
+  void objClick() {
+    if (mousePressed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
+      playerEnergy = playerEnergy + 10;
+    }
   }
-  if(objX < -200){
-    objX = width + 200; 
-  }
-  if(objX > width + 200){
-    objX = -200; 
-  }
-  
-  println(objY);
-  }
+
+
+
 }

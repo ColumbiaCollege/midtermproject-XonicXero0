@@ -21,18 +21,17 @@ float playerEnergy;
 //float playerKnowledge;
 
 //declare other shit
-Star sun, bazelgeuse, whiteS;
+Star sun, bazelgeuse, whiteS, cStar, eleonora, evelyn;
 
-Starobj Homeworld, RGasgiant, RRuinedplanet, Drake, Cargoship;
+Starobj Homeworld, RGasgiant, RRuinedplanet, Drake, Cargoship, Lavaland, Dusteye, Greengas, Cworld, Dune, Luxship;
 
 //global variables for player
 
 //systems!
-int systems = 0;
+int systems = 1;
 
 //possible systems that can appear on UI(not working)
 String jump = "Space Manipulation Jump";
-
 
 void setup() {
   size(1920, 1080);
@@ -43,54 +42,50 @@ void setup() {
   playerX = width/2;
   playerY = height/2;
 
+  //starting HP/Energy
+  playerHealth = 100;
+  playerEnergy = 100;
+
   //type what this is called when you remember 
   Player = new Starship();
 
   sun = new Star(width/3, height/1.5, width/10, 236, 255, 50);
   bazelgeuse = new Star(width/4, height/3, width/8, 255, 161, 126);
   whiteS = new Star(width/1.2, height/6, width/20, 207, 246, 203);
+  cStar = new Star(width/1.4, height/1.1, width/9, 245, 218, 84);
+  eleonora = new Star(width/1.8, height/2.5, width/8.5, 222, 88, 58);
+  evelyn = new Star (width/3, height/1.4, width/23, 243, 247, 217);
 
   //load custom objs, ships
-  Homeworld = new Starobj(width/2, height/3, width/25, width/25);
+  Homeworld = new Starobj(width/2, height/3, width/21, width/21);
   RGasgiant = new Starobj(width/1.5, height/4, width/15, width/15);
   RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
   Drake = new Starobj(width/2, height/1.7, width/17, width/17);
   Cargoship = new Starobj(width/5, height/1.5, width/30, height/8);
+  Cworld = new Starobj(width/2, height/1.8, width/24, width/24);
+  Lavaland = new Starobj(width/1.5, height/5, width/27, width/27);
+  Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25);
+  Greengas = new Starobj(width/5, height/2, width/13, width/13);
+  Dune = new Starobj(width/1.2, height/7, width/24, width/24);
+  Luxship = new Starobj(width/1.2, height/1.2, width/7, height/13);
 }
 
 void draw() {
 
+  //making sure playerhealth is not above max ammount
+  if (playerHealth > 100) {
+    playerHealth = 100;
+  }
+
+  //making sure playerenergy is not above max ammount
+  if (playerEnergy > 100) {
+    playerEnergy = 100;
+  }
+
   switch(systems) {
 
-    //system 1
+    //warp area
   case 0:
-
-    //resets background
-    background(#030303);
-
-    //methods for star
-    sun.drawStar();
-
-    //Starobj methods
-    Homeworld.obj("Homeworld.png");
-
-    Homeworld.objDraw();
-
-    println(playerX);
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
-
-    break;
-
-    //warp selection areaw
-  case 1:
 
     //background
     background(#2D3234);
@@ -109,9 +104,52 @@ void draw() {
 
     sun.drawStar();
 
+    sun.warpStar(1);
+
     bazelgeuse.drawStar();
 
+    bazelgeuse.warpStar(2);
+
     whiteS.drawStar();
+
+    whiteS.warpStar(3);
+
+    cStar.drawStar();
+
+    cStar.warpStar(4);
+
+    eleonora.drawStar();
+
+    eleonora.warpStar(5);
+
+    break;
+
+    //system 1
+  case 1:
+
+    //resets background
+    background(#030303);
+
+    //methods for star
+    sun.drawStar();
+
+    //Starobj methods
+    Homeworld.obj("Homeworld.png");
+
+    Homeworld.objDraw();
+
+    Dusteye.obj("Dustedeye.png");
+
+    Dusteye.objDraw();
+
+    //UI
+    Player.playerUI();
+
+    //ship
+    Player.playerDraw();
+
+    //move
+    Player.playerMove();
 
     break;
 
@@ -172,7 +210,71 @@ void draw() {
     Player.playerMove();
 
     break;
-  
+
+    //system4
+  case 4:
+
+    //resets background
+    background(#030303);
+
+    cStar.drawStar();
+
+    //Starobj methods
+    Cworld.obj("Cworld.png");
+
+    Cworld.objDraw();
+
+    Greengas.obj("Greengas.png");
+
+    Greengas.objDraw();
+
+    Lavaland.obj("Lavaland.png");
+
+    Lavaland.objDraw();
+
+    //UI
+    Player.playerUI();
+
+    //ship
+    Player.playerDraw();
+
+    //move
+    Player.playerMove();
+
+    break;
+
+    //system5
+  case 5:
+
+    //resets background
+    background(#030303);
+
+    eleonora.drawStar();
+
+    evelyn.drawStar();
+
+    //Starobj methods
+
+    Dune.obj("Dune.png");
+
+    Dune.objDraw();
+
+    Luxship.obj("Luxship.png");
+
+    Luxship.objDraw();
+
+    Luxship.objMove(-width/1200, 0);
+    
+    //UI
+    Player.playerUI();
+
+    //ship
+    Player.playerDraw();
+
+    //move
+    Player.playerMove();
+
+    break;
   }
 }
 
@@ -188,7 +290,9 @@ void keyPressed() {
   }
   //test for switch
   if (key == '1') {
-    systems ++;
+    playerX = width/2;
+    playerY = height/2;
+    systems = 0;
   }
 }
 //code for deactivating movement 
