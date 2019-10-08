@@ -6,6 +6,7 @@ class Starobj {
   float objY;
   int objW;
   int objH;
+  boolean objUsed = false;
 
   //constructor 
   Starobj( float _X, float _Y, int _W, int _H) {
@@ -49,12 +50,21 @@ class Starobj {
     }
   }
 
-  void objClick() {
+  void objInter() {
     if (mousePressed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
-      playerEnergy = playerEnergy + 10;
     }
   }
 
-
-
+  //code that allows for energy to be exchanged for resources on objects 
+  float objUse(float _R, float _C, float _A) {
+    if (playerEnergy > _C && objUsed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
+      //makes the Rng ammount no insane 
+      _A = floor(_A);
+      playerEnergy = playerEnergy - _C;
+      _R = _R +_A;
+      //resets objUsed to false
+      objUsed = false;
+    }
+    return _R;
+  }
 }

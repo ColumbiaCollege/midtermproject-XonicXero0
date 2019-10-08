@@ -16,12 +16,6 @@ class Starship {
 
     //movement
 
-    //
-    float targetX = mouseX;
-
-    //
-    float targetY = mouseY;
-
     //player speed when thrusting and energy cost
     if (thrust) {
       playerSpeed = 1; 
@@ -55,7 +49,7 @@ class Starship {
 
   void playerUI() {
     //Player Starship Info! (Currancy, Health, Energy, ETC.
-    
+
     //status/health/controls/etc bar
     stroke(#4B4A4A);
     strokeWeight(2);
@@ -70,6 +64,7 @@ class Starship {
     fill(255);
     textAlign(CENTER);
     textSize(width/50);
+    //sI
     text(sI, width/2, height/17);
 
     //health bar
@@ -77,7 +72,6 @@ class Starship {
     strokeWeight(4);
     fill(#818181);
     rect(width/1.34, height/175, width/4, height/35);
-    
     strokeWeight(0);
     stroke(0);
     fill(255, 0, 0);
@@ -88,15 +82,37 @@ class Starship {
     strokeWeight(4);
     fill(#818181);
     rect(width/1.34, height/25, width/4, height/35);
-    
     strokeWeight(0);
     stroke(0);
     fill(0, 100, 255);
     rect(width/1.34, height/25, width/4, height/35);
 
+    //resource bars 
+    stroke(#4B4A4A);
+    strokeWeight(2);
+    fill(#767675);
+    rect(width/175, height/175, width/4, height/15);
+
+    //Player Cash display
+    textSize(width/100);
+    fill(0);
+    text("Cash", width/50, height/45); 
+    text(playerCash, width/15, height/45);
+    
+    //Player Ore display
+    textSize(width/100);
+    fill(0);
+    text("Ore", width/50, height/22);
+    text(playerOre, width/15, height/22);
+    
+    //player Data sisplay
+    textSize(width/100);
+    fill(0);
+    text("Data", width/50, height/15);
+    text(playerData, width/15, height/15);
+
     strokeWeight(0);
     stroke(0);
-    
   }
 
   void playerDraw() {
