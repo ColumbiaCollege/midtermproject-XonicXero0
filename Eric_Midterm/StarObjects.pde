@@ -7,6 +7,8 @@ class Starobj {
   int objW;
   int objH;
   boolean objUsed = false;
+  boolean objTrade = false;
+  boolean objBuySell = false;
 
   //constructor 
   Starobj( float _X, float _Y, int _W, int _H) {
@@ -50,8 +52,50 @@ class Starobj {
     }
   }
 
+  //code that allows you to trade with planets 
   void objInter() {
     if (mousePressed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
+      objTrade = true;
+    }
+    if (objTrade) {
+      //text bar for planet info
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#818181);
+      rect(width/6, height/4, width/1.5, height/3);
+
+      //tradeOptions
+
+      //visuals for buttons 
+      //button1
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/6, height/1.71, width/6, height/12);
+      //button2
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/3, height/1.71, width/6, height/12);
+      //button3
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/2, height/1.71, width/6, height/12);
+      //button4
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/1.5, height/1.71, width/6, height/12);
+    }
+
+    //actual buttons 
+    if (objTrade && objUsed && mouseX >= width/6 && mouseX <= (width/6 + width/6) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)){
+      println(playerX);
+    }
+
+    if (keyPressed) {
+      objTrade = false;
     }
   }
 

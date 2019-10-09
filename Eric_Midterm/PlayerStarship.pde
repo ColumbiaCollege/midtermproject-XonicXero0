@@ -50,6 +50,8 @@ class Starship {
   void playerUI() {
     //Player Starship Info! (Currancy, Health, Energy, ETC.
 
+    //health/energy bar progress
+
     //status/health/controls/etc bar
     stroke(#4B4A4A);
     strokeWeight(2);
@@ -75,7 +77,7 @@ class Starship {
     strokeWeight(0);
     stroke(0);
     fill(255, 0, 0);
-    rect(width/1.34, height/175, width/4, height/35);
+    rect(width/1.34, height/175, playerHealth/100*width/4, height/35);
 
     //energy bar
     stroke(#4B4A4A);
@@ -85,7 +87,7 @@ class Starship {
     strokeWeight(0);
     stroke(0);
     fill(0, 100, 255);
-    rect(width/1.34, height/25, width/4, height/35);
+    rect(width/1.34, height/25, playerEnergy/100*width/4, height/35);
 
     //resource bars 
     stroke(#4B4A4A);
@@ -98,13 +100,13 @@ class Starship {
     fill(0);
     text("Cash", width/50, height/45); 
     text(playerCash, width/15, height/45);
-    
+
     //Player Ore display
     textSize(width/100);
     fill(0);
     text("Ore", width/50, height/22);
     text(playerOre, width/15, height/22);
-    
+
     //player Data sisplay
     textSize(width/100);
     fill(0);
@@ -117,6 +119,7 @@ class Starship {
 
   void playerDraw() {
 
+    pushMatrix();
     //makes ship face the mouse at all times (gotten mainly from API)
     translate(playerX, playerY);
     a = atan2(mouseY-playerY, mouseX-playerX);
@@ -165,6 +168,7 @@ class Starship {
     ellipseMode(CORNERS);
     stroke(0);
 
-    //println(playerX);
+    popMatrix();
+   //println(playerX);
   }
 }
