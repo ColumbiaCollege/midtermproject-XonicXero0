@@ -18,13 +18,13 @@ class Starship {
 
     //player speed when thrusting and energy cost
     if (thrust) {
-      playerSpeed = 1; 
+      playerSpeed = width/1000; 
       playerEnergy = playerEnergy - 0.001;
     }
 
     //player speed when boosting and energy cost
     if (boost) {
-      playerSpeed = 3;
+      playerSpeed = width/500;
       playerEnergy = playerEnergy - 0.005;
     }
 

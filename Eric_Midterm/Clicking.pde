@@ -29,12 +29,18 @@ void keyReleased() {
 }
 
 void mouseClicked() {
-  Dusteye.objUsed = true;
+  Homeworld.objUsed = true;
   RGasgiant.objUsed = true;
   RRuinedplanet.objUsed = true;
-  Greengas.objUsed = true;
+  Drake.objUsed = true;
+  Cargoship.objUsed = true;
   Lavaland.objUsed = true;
+  Dusteye.objUsed = true;
+  Greengas.objUsed = true;
+  Cworld.objUsed = true;
   Dune.objUsed = true;
+  Luxship.objUsed = true;
   Frosty.objUsed = true;
+  Metro.objUsed = true;
   Havock.objUsed = true;
 }
