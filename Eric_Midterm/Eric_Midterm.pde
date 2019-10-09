@@ -59,9 +59,9 @@ void setup() {
   playerHealth = 100;
   playerEnergy = 100;
 
-  //type what this is called when you remember 
+  //call Player 
   Player = new Starship();
-
+  //call Stars
   sun = new Star(width/3, height/1.5, width/10, 236, 255, 50);
   bazelgeuse = new Star(width/4, height/3, width/8, 232, 117, 75);
   whiteS = new Star(width/1.2, height/6, width/20, 207, 246, 203);
@@ -69,8 +69,7 @@ void setup() {
   eleonora = new Star(width/1.8, height/2.5, width/8.5, 255, 161, 126);
   evelyn = new Star(width/3, height/1.4, width/23, 82, 173, 232);
   greg = new Star(width/1.1, height/3, width/11, 226, 232, 82); 
-
-  //load custom objs, ships
+  //call starObj (planets, shit, etc)
   Homeworld = new Starobj(width/2, height/3, width/21, width/21);
   RGasgiant = new Starobj(width/1.5, height/4, width/15, width/15);
   RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
@@ -85,17 +84,15 @@ void setup() {
   Frosty = new Starobj(width/8, height/1.4, width/25, width/25);
   Metro = new Starobj(width/3, height/2, width/22, width/22);
   Havock = new Starobj(width/1.6, height/3, width/20, width/20);
-  
-  
 }
 
 void draw() {
 
   //testing 
-  println(playerHealth);
-  println(playerEnergy);
-  println(playerOre);
-  println(playerData);
+  //println(playerHealth);
+  //println(playerEnergy);
+  //println(playerOre);
+  //println(playerData);
 
   //making sure playerhealth is not above max ammount
   if (playerHealth > 100) {
@@ -106,11 +103,11 @@ void draw() {
     playerEnergy = 100;
   }
   //gameover state
-  if (playerHealth < 0) {
+  if (playerHealth <= 0) {
     //game over
   }
   //energy over state
-  if (playerEnergy < 0) {
+  if (playerEnergy <= 0) {
     playerHealth = playerHealth - 0.5;
   }
 
@@ -123,7 +120,7 @@ void draw() {
     background(#2D3234);
 
     sI = systemInfo[0];
-    
+
     //jump menu 
     fill(200);
     rect(width/3, height/175, width/3, height/15);
@@ -197,6 +194,8 @@ void draw() {
 
     //move
     Player.playerMove();
+    
+    Homeworld.objInter();
 
     break;
 
@@ -406,23 +405,23 @@ void draw() {
     //methods for star
     greg.drawStar();
     greg.contactStar();
-    
+
     //Starobj methods
-    
+
     Frosty.obj("Frosty.png");
-    
+
     Frosty.objDraw();
-    
+
     playerOre = Frosty.objUse(playerOre, 5, random(7, 25));
-    
+
     Metro.obj("Metro.png");
-    
+
     Metro.objDraw();
-    
+
     Havock.obj("Havock.png");
-    
+
     Havock.objDraw();
-    
+
     playerData = Havock.objUse(playerData, 20, random(1, 25));
 
     //UI
@@ -435,45 +434,5 @@ void draw() {
     Player.playerMove();
 
     break;
-  }
-}
-
-//code for activating movement 
-void keyPressed() {
-  //moves
-  if (key == 'w') {
-    Player.thrust = true;
-  }
-  //boosts
-  if (key == ' ') {
-    Player.boost = true;
-  }
-  //warp button 
-  if (key == '1') {
-    playerX = width/2;
-    playerY = height/2;
-    playerEnergy = playerEnergy - 10;
-    systems = 0;
-  }  
-  if (key == 'q') {
-    Dusteye.objUsed = true;
-    RGasgiant.objUsed = true;
-    RRuinedplanet.objUsed = true;
-    Greengas.objUsed = true;
-    Lavaland.objUsed = true;
-    Dune.objUsed = true;
-    Frosty.objUsed = true;
-    Havock.objUsed = true;
-  }
-}
-//code for deactivating movement 
-void keyReleased() {
-  //stops 
-  if (key == 'w') {
-    Player.thrust = false;
-  }
-  //stops boost
-  if (key == ' ') {
-    Player.boost = false;
   }
 }
