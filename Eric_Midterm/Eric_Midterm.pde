@@ -26,7 +26,7 @@ float playerRewards;
 String[]systemInfo = new String[7];
 {
   systemInfo[0] = "Space Manipulation Jump";
-  systemInfo[1] = "Home System";
+  systemInfo[1] = "Sol System";
   systemInfo[2] = "Bazelgeuse System";
   systemInfo[3] = "Drake System";
   systemInfo[4] = "Archway System";
@@ -51,17 +51,10 @@ void setup() {
   //fullScreen();
   background(0);
 
-  //player starting position in system 
-  playerX = width/2;
-  playerY = height/2;
-
-  //starting HP/Energy
-  playerHealth = 100;
-  playerEnergy = 100;
-
-  //type what this is called when you remember 
+  //call Player 
   Player = new Starship();
 
+  //call Stars
   sun = new Star(width/3, height/1.5, width/10, 236, 255, 50);
   bazelgeuse = new Star(width/4, height/3, width/8, 232, 117, 75);
   whiteS = new Star(width/1.2, height/6, width/20, 207, 246, 203);
@@ -70,32 +63,42 @@ void setup() {
   evelyn = new Star(width/3, height/1.4, width/23, 82, 173, 232);
   greg = new Star(width/1.1, height/3, width/11, 226, 232, 82); 
 
-  //load custom objs, ships
+  //call starObj (planets, shit, etc)
+  //inhabited 
   Homeworld = new Starobj(width/2, height/3, width/21, width/21);
-  RGasgiant = new Starobj(width/1.5, height/4, width/15, width/15);
-  RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
   Drake = new Starobj(width/2, height/1.7, width/17, width/17);
-  Cargoship = new Starobj(width/5, height/1.5, width/30, height/8);
   Cworld = new Starobj(width/2, height/1.8, width/24, width/24);
+  Metro = new Starobj(width/3, height/2, width/22, width/22);
+  //spaceships
+  Luxship = new Starobj(width/1.2, height/1.2, width/10, height/13);
+  Cargoship = new Starobj(width/5, height/1.5, width/30, height/8);
+  //researchable(data)
+  RGasgiant = new Starobj(width/1.5, height/4, width/15, width/15);
+  Greengas = new Starobj(width/5, height/2, width/13, width/13);
+  Havock = new Starobj(width/1.6, height/3, width/20, width/20);
+  //minable(Ore)
   Lavaland = new Starobj(width/1.5, height/5, width/27, width/27);
   Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25);
-  Greengas = new Starobj(width/5, height/2, width/13, width/13);
   Dune = new Starobj(width/1.2, height/7, width/24, width/24);
-  Luxship = new Starobj(width/1.2, height/1.2, width/10, height/13);
   Frosty = new Starobj(width/8, height/1.4, width/25, width/25);
-  Metro = new Starobj(width/3, height/2, width/22, width/22);
-  Havock = new Starobj(width/1.6, height/3, width/20, width/20);
-  
-  
+  RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
+
+  //player starting position in system 
+  playerX = width/2;
+  playerY = height/2;
+
+  //starting HP/Energy
+  playerHealth = 100;
+  playerEnergy = 100;
 }
 
 void draw() {
 
   //testing 
-  println(playerHealth);
-  println(playerEnergy);
-  println(playerOre);
-  println(playerData);
+  //println(playerHealth);
+  //println(playerEnergy);
+  //println(playerOre);
+  //println(playerData);
 
   //making sure playerhealth is not above max ammount
   if (playerHealth > 100) {
@@ -106,11 +109,11 @@ void draw() {
     playerEnergy = 100;
   }
   //gameover state
-  if (playerHealth < 0) {
+  if (playerHealth <= 0) {
     //game over
   }
   //energy over state
-  if (playerEnergy < 0) {
+  if (playerEnergy <= 0) {
     playerHealth = playerHealth - 0.5;
   }
 
@@ -119,84 +122,14 @@ void draw() {
     //warp area
   case 0:
 
-    //background
-    background(#2D3234);
-
-    sI = systemInfo[0];
-    
-    //jump menu 
-    fill(200);
-    rect(width/3, height/175, width/3, height/15);
-    fill(255);
-    textAlign(CENTER);
-    textSize(width/50);
-    text(sI, width/2, height/17);
-
-    //selectable stars
-
-    sun.drawStar();
-
-    bazelgeuse.drawStar();
-
-    whiteS.drawStar();
-
-    cStar.drawStar();
-
-    eleonora.drawStar();
-
-    greg.drawStar();
-
-    //where stars take you if they are clicked 
-    sun.warpStar(1);
-    bazelgeuse.warpStar(2);
-    whiteS.warpStar(3);
-    cStar.warpStar(4);
-    eleonora.warpStar(5);
-    greg.warpStar(6);
+    jumpMap();
 
     break;
 
-    //system 1
+    //Sol System
   case 1:
 
-    //resets background
-    background(#030303);
-
-    //background stars
-    for (int t = 0; t < width; t=t+50) {
-      float r = random (height);
-
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
-
-    sI = systemInfo[1];
-
-    //methods for star
-    sun.drawStar();
-    sun.contactStar();
-
-    //Starobj methods
-    Homeworld.obj("Homeworld.png");
-
-    Homeworld.objDraw();
-
-    Dusteye.obj("Dustedeye.png");
-
-    Dusteye.objDraw();
-
-    playerOre = Dusteye.objUse(playerOre, 3, random(5, 15));
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    solSystem();
 
     break;
 
@@ -226,13 +159,9 @@ void draw() {
 
     RGasgiant.objDraw();
 
-    playerData = RGasgiant.objUse(playerData, 20, random(5, 15));
-
     RRuinedplanet.obj("RRuinedplanet.png");
 
     RRuinedplanet.objDraw();
-
-    playerOre = RRuinedplanet.objUse(playerOre, 7, random(10, 35));
 
     //UI
     Player.playerUI();
@@ -318,13 +247,9 @@ void draw() {
 
     Greengas.objDraw();
 
-    playerData = Greengas.objUse(playerData, 15, random(3, 13));
-
     Lavaland.obj("Lavaland.png");
 
     Lavaland.objDraw();
-
-    playerData = Lavaland.objUse(playerData, 5, random(2, 10));
 
     //UI
     Player.playerUI();
@@ -367,8 +292,6 @@ void draw() {
 
     Dune.objDraw();
 
-    playerOre = Dune.objUse(playerOre, 4, random(5, 15));
-
     Luxship.obj("Luxship.png");
 
     Luxship.objDraw();
@@ -406,24 +329,20 @@ void draw() {
     //methods for star
     greg.drawStar();
     greg.contactStar();
-    
+
     //Starobj methods
-    
+
     Frosty.obj("Frosty.png");
-    
+
     Frosty.objDraw();
-    
-    playerOre = Frosty.objUse(playerOre, 5, random(7, 25));
-    
+
     Metro.obj("Metro.png");
-    
+
     Metro.objDraw();
-    
+
     Havock.obj("Havock.png");
-    
+
     Havock.objDraw();
-    
-    playerData = Havock.objUse(playerData, 20, random(1, 25));
 
     //UI
     Player.playerUI();
@@ -435,45 +354,5 @@ void draw() {
     Player.playerMove();
 
     break;
-  }
-}
-
-//code for activating movement 
-void keyPressed() {
-  //moves
-  if (key == 'w') {
-    Player.thrust = true;
-  }
-  //boosts
-  if (key == ' ') {
-    Player.boost = true;
-  }
-  //warp button 
-  if (key == '1') {
-    playerX = width/2;
-    playerY = height/2;
-    playerEnergy = playerEnergy - 10;
-    systems = 0;
-  }  
-  if (key == 'q') {
-    Dusteye.objUsed = true;
-    RGasgiant.objUsed = true;
-    RRuinedplanet.objUsed = true;
-    Greengas.objUsed = true;
-    Lavaland.objUsed = true;
-    Dune.objUsed = true;
-    Frosty.objUsed = true;
-    Havock.objUsed = true;
-  }
-}
-//code for deactivating movement 
-void keyReleased() {
-  //stops 
-  if (key == 'w') {
-    Player.thrust = false;
-  }
-  //stops boost
-  if (key == ' ') {
-    Player.boost = false;
   }
 }
