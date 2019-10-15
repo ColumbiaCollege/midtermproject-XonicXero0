@@ -4,26 +4,8 @@
 //Declare Player's Starship
 Starship Player;
 
-//properties 
-
-//variables for position
-float playerX;
-float playerY;
-//variable for player speed
-float a;
-float playerSpeed;
-//variables for UI(Health, Energy, and Resources)(Not USED YET)
-float playerHealth;
-float playerEnergy;
-float playerCash;
-float playerAmmo;
-float playerOre;
-float playerData;
-float playerKills;
-float playerRewards;
-
 //system info
-String[]systemInfo = new String[7];
+String[]systemInfo = new String[9];
 {
   systemInfo[0] = "Space Manipulation Jump";
   systemInfo[1] = "Sol System";
@@ -32,12 +14,17 @@ String[]systemInfo = new String[7];
   systemInfo[4] = "Archway System";
   systemInfo[5] = "Eleeve System";
   systemInfo[6] = "Gregory System";
+  systemInfo[7] = "Eye System";
+  systemInfo[8] = "Decay System";
 }
 //tells UI which ssytem its in
 String sI; 
 
+//Arraylist for Asteroids
+ArrayList<StarDebris> Asteroids = new ArrayList<StarDebris>(); 
+
 //declare other shit
-Star sun, bazelgeuse, whiteS, cStar, eleonora, evelyn, greg;
+Star sun, bazelgeuse, whiteS, cStar, eleonora, evelyn, greg, iris, decay, blackHole1;
 
 Starobj Homeworld, RGasgiant, RRuinedplanet, Drake, Cargoship, Lavaland, Dusteye, Greengas, Cworld, Dune, Luxship, Frosty, Metro, Havock;
 
@@ -50,6 +37,7 @@ void setup() {
   size(1920, 1080);
   //fullScreen();
   background(0);
+  frameRate(60);
 
   //call Player 
   Player = new Starship();
@@ -58,10 +46,13 @@ void setup() {
   sun = new Star(width/3, height/1.5, width/10, 236, 255, 50);
   bazelgeuse = new Star(width/4, height/3, width/8, 232, 117, 75);
   whiteS = new Star(width/1.2, height/6, width/20, 207, 246, 203);
-  cStar = new Star(width/1.4, height/1.1, width/9, 245, 218, 84);
+  cStar = new Star(width/1.4, height/1.3, width/9, 245, 218, 84);
   eleonora = new Star(width/1.8, height/2.5, width/8.5, 255, 161, 126);
   evelyn = new Star(width/3, height/1.4, width/23, 82, 173, 232);
   greg = new Star(width/1.1, height/3, width/11, 226, 232, 82); 
+  iris = new Star(width/2, height/1.2, width/19, 208, 237, 245);
+  decay = new Star(width/5, height/6.3, width/16, 232, 210, 136);
+  blackHole1 = new Star(width/1.8, height/1.3, width/13, 242, 239, 237);
 
   //call starObj (planets, shit, etc)
   //inhabited 
@@ -70,13 +61,12 @@ void setup() {
   Cworld = new Starobj(width/2, height/1.8, width/24, width/24);
   Metro = new Starobj(width/3, height/2, width/22, width/22);
   //spaceships
-  Luxship = new Starobj(width/1.2, height/1.2, width/10, height/13);
+  Luxship = new Starobj(width/1.2, height/1.6, width/10, height/13);
   Cargoship = new Starobj(width/5, height/1.5, width/30, height/8);
-  //researchable(data)
-  RGasgiant = new Starobj(width/1.5, height/4, width/15, width/15);
+  ////minable(Ore) researchable(data)
+  RGasgiant = new Starobj(width/1.5, height/4, width/13, width/13);
   Greengas = new Starobj(width/5, height/2, width/13, width/13);
   Havock = new Starobj(width/1.6, height/3, width/20, width/20);
-  //minable(Ore)
   Lavaland = new Starobj(width/1.5, height/5, width/27, width/27);
   Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25);
   Dune = new Starobj(width/1.2, height/7, width/24, width/24);
@@ -84,37 +74,35 @@ void setup() {
   RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
 
   //player starting position in system 
-  playerX = width/2;
-  playerY = height/2;
+  Player.X = width/2;
+  Player.Y = height/2;
 
   //starting HP/Energy
-  playerHealth = 100;
-  playerEnergy = 100;
+  Player.Health = 100;
+  Player.Energy = 100;
 }
 
 void draw() {
 
-  //testing 
-  //println(playerHealth);
-  //println(playerEnergy);
-  //println(playerOre);
-  //println(playerData);
-
-  //making sure playerhealth is not above max ammount
-  if (playerHealth > 100) {
-    playerHealth = 100;
+  println(frameRate);
+  
+  //making sure Player.Health is not above max ammount
+  if (Player.Health > 100) {
+    Player.Health = 100;
   }
-  //making sure playerenergy is not above max ammount
-  if (playerEnergy > 100) {
-    playerEnergy = 100;
+  //making sure Player.Energy is not above max ammount
+  if (Player.Energy > 100) {
+    Player.Energy = 100;
   }
   //gameover state
-  if (playerHealth <= 0) {
-    //game over
+  if (Player.Health <= 0) {
+    Player.Health = 0;
+    systems = 10;
   }
   //energy over state
-  if (playerEnergy <= 0) {
-    playerHealth = playerHealth - 0.5;
+  if (Player.Energy <= 0) {
+    Player.Energy = 0;
+    Player.Health = Player.Health - 0.1;
   }
 
   switch(systems) {
@@ -133,225 +121,64 @@ void draw() {
 
     break;
 
-    //system 2
+    //Bazelgeuse System
   case 2:
 
-    //resets background
-    background(#150D0D);
-
-    //background stars
-    for (int t = 0; t < width; t=t+80) {
-      float r = random (height);
-
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
-
-    sI = systemInfo[2];
-
-    bazelgeuse.drawStar();
-    bazelgeuse.contactStar();
-
-    //Staronj methods 
-    RGasgiant.obj("RGasgiant.png");
-
-    RGasgiant.objDraw();
-
-    RRuinedplanet.obj("RRuinedplanet.png");
-
-    RRuinedplanet.objDraw();
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    bazelgeuseSystem();
 
     break;
 
-    //system3
+    //Drake System
   case 3:
 
-    //resets background
-    background(#030303);
-
-    //background stars
-    for (int t = 0; t < width; t=t+50) {
-      float r = random (height);
-
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
-
-    sI = systemInfo[3];
-
-    whiteS.drawStar();
-    whiteS.contactStar();
-
-    //Starobj methods
-    Drake.obj("Drake.png");
-
-    Drake.objDraw();
-
-    Cargoship.obj("Cargoship.png");
-
-    Cargoship.objDraw();
-
-    Cargoship.objMove(0, -width/1000);
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    drakeSystem();
 
     break;
 
-    //system4
+    //Archway system
   case 4:
 
-    //resets background
-    background(#030303);
-
-    //background stars
-    for (int t = 0; t < width; t=t+50) {
-      float r = random (height);
-
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
-
-    sI = systemInfo[4];
-
-    cStar.drawStar();
-    cStar.contactStar();
-
-    //Starobj methods
-    Cworld.obj("Cworld.png");
-
-    Cworld.objDraw();
-
-    Greengas.obj("Greengas.png");
-
-    Greengas.objDraw();
-
-    Lavaland.obj("Lavaland.png");
-
-    Lavaland.objDraw();
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    archwaySystem();
 
     break;
 
-    //system5
+    //Eleeve System
   case 5:
 
-    //resets background
-    background(#030303);
-
-    //background stars
-    for (int t = 0; t < width; t=t+50) {
-      float r = random (height);
-
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
-
-    sI = systemInfo[5];
-
-    eleonora.drawStar();
-    eleonora.contactStar();
-
-    evelyn.drawStar();
-    evelyn.contactStar();
-
-    //Starobj methods
-
-    Dune.obj("Dune.png");
-
-    Dune.objDraw();
-
-    Luxship.obj("Luxship.png");
-
-    Luxship.objDraw();
-
-    Luxship.objMove(-width/1200, 0);
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    eleeveSystem();
 
     break;
 
+    //Gregory System
   case 6:
 
-    //resets background
-    background(#030303);
+    gregorySystem();
 
-    //background stars
-    for (int t = 0; t < width; t=t+50) {
-      float r = random (height);
+    break;
 
-      strokeWeight(0);
-      stroke(0);
-      fill(255);
-      rect(0+t, 0+r, 2, 2);
-    }
+    //Eye System
+  case 7:
 
-    sI = systemInfo[6];
+    eyeSystem();
 
-    //methods for star
-    greg.drawStar();
-    greg.contactStar();
+    break;
 
-    //Starobj methods
+    //Decay System
+  case 8:
 
-    Frosty.obj("Frosty.png");
+    decaySystem();
 
-    Frosty.objDraw();
+    break;
 
-    Metro.obj("Metro.png");
+    //future system
+  case 9:
 
-    Metro.objDraw();
+    break;
 
-    Havock.obj("Havock.png");
+    //gameover
+  case 10:
 
-    Havock.objDraw();
-
-    //UI
-    Player.playerUI();
-
-    //ship
-    Player.playerDraw();
-
-    //move
-    Player.playerMove();
+    gameOver();
 
     break;
   }

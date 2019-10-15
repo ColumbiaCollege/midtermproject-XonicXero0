@@ -9,10 +9,10 @@ void keyPressed() {
     Player.boost = true;
   }
   //warp button 
-  if (key == '1') {
-    playerX = width/2;
-    playerY = height/2;
-    playerEnergy = playerEnergy - 10;
+  if (key == '1' && Player.Energy > 10) {
+    Player.X = width/2;
+    Player.Y = height/2;
+    Player.Energy = Player.Energy - 10;
     systems = 0;
   }
 }
@@ -28,6 +28,7 @@ void keyReleased() {
   }
 }
 
+//clicking on planets when player is on them 
 void mouseClicked() {
   Homeworld.objUsed = true;
   RGasgiant.objUsed = true;

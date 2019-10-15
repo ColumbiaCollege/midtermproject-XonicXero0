@@ -1,6 +1,18 @@
 class Starship {
 
   //variables 
+  //variables for position
+  float X;
+  float Y;
+  //variable for player speed
+  float a;
+  float Speed;
+  //variables for UI(Health, Energy, and Resources)
+  float Health;
+  float Energy;
+  float Cash;
+  float Ore;
+  float Data;
   //booleans for ship movement
   boolean thrust = false;
   boolean boost = false;
@@ -18,32 +30,31 @@ class Starship {
 
     //player speed when thrusting and energy cost
     if (thrust) {
-      playerSpeed = width/1000; 
-      playerEnergy = playerEnergy - 0.001;
+      Player.Speed = width/1000; 
+      Player.Energy = Player.Energy - 0.001;
     }
 
     //player speed when boosting and energy cost
     if (boost) {
-      playerSpeed = width/500;
-      playerEnergy = playerEnergy - 0.005;
+      Player.Speed = width/500;
+      Player.Energy = Player.Energy - 0.005;
     }
 
     //code that makes the ship move to the mouse position when thrusters are activated
-    //weird pausing issue && abs( targetX - playerX ) > 1 && abs( targetY - playerY ) > 1 
+    //weird pausing issue && abs( targetX - Player.X ) > 1 && abs( targetY - Player.Y ) > 1 
     if (thrust) {
-      playerX += playerSpeed*cos(a);
-      playerY += playerSpeed*sin(a);
+      Player.X += Player.Speed*cos(a);
+      Player.Y += Player.Speed*sin(a);
     }
 
     //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
-    //if ( abs( targetX - playerX ) < 1 && abs( targetY - playerY ) < 1  ) {
-    //thrust = false;
-    //boost = false;
-    //}
+    if ( abs( mouseX - Player.X ) < 10 && abs( mouseY - Player.Y ) < 10  ) {
+      thrust = false;
+    }
 
     //code that makes it so player cannot go behind/under status bar
-    if (playerY < height/13) {
-      playerY = height/13;
+    if (Player.Y < height/13) {
+      Player.Y = height/13;
     }
   }
 
@@ -64,10 +75,11 @@ class Starship {
 
     //SYSTEM NAME
     fill(255);
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
     textSize(width/50);
     //sI
-    text(sI, width/2, height/17);
+    text(sI, width/3, height/175, width/3, height/15);
+    textAlign(BASELINE);
 
     //health bar
     stroke(#4B4A4A);
@@ -77,7 +89,7 @@ class Starship {
     strokeWeight(0);
     stroke(0);
     fill(255, 0, 0);
-    rect(width/1.34, height/175, playerHealth/100*width/4, height/35);
+    rect(width/1.34, height/175, Player.Health/100*width/4, height/35);
 
     //energy bar
     stroke(#4B4A4A);
@@ -87,7 +99,7 @@ class Starship {
     strokeWeight(0);
     stroke(0);
     fill(0, 100, 255);
-    rect(width/1.34, height/25, playerEnergy/100*width/4, height/35);
+    rect(width/1.34, height/25, Player.Energy/100*width/4, height/35);
 
     //resource bars 
     stroke(#4B4A4A);
@@ -99,19 +111,19 @@ class Starship {
     textSize(width/100);
     fill(0);
     text("Cash", width/50, height/45); 
-    text(playerCash, width/15, height/45);
+    text(Player.Cash, width/15, height/45);
 
     //Player Ore display
     textSize(width/100);
     fill(0);
     text("Ore", width/50, height/22);
-    text(playerOre, width/15, height/22);
+    text(Player.Ore, width/15, height/22);
 
     //player Data sisplay
     textSize(width/100);
     fill(0);
     text("Data", width/50, height/15);
-    text(playerData, width/15, height/15);
+    text(Player.Data, width/15, height/15);
 
     strokeWeight(0);
     stroke(0);
@@ -121,8 +133,8 @@ class Starship {
 
     pushMatrix();
     //makes ship face the mouse at all times (gotten mainly from API)
-    translate(playerX, playerY);
-    a = atan2(mouseY-playerY, mouseX-playerX);
+    translate(Player.X, Player.Y);
+    a = atan2(mouseY-Player.Y, mouseX-Player.X);
     rotate(a);
 
     //modes for players starship drawing
@@ -169,6 +181,6 @@ class Starship {
     stroke(0);
 
     popMatrix();
-   //println(playerX);
+    //println(Player.X);
   }
 }

@@ -53,21 +53,34 @@ class Starobj {
   }
 
   //code that allows you to trade with planets 
-  void objInter(float _O, float _D, float _H, float _E, String lore) {
-    if (mousePressed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
+  void objTradeWith(float _O, float _D, float _H, float _E, String obj, String lore) {
+    if (mousePressed && Player.X >= objX && Player.X <= (objX + objW) && Player.Y >= objY && Player.Y <= (objY + objH)) {
       objTrade = true;
       objUsed = false;
     }
     if (objTrade) {
-      //text bar for planet info
+     //text bar for planet info
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#818181);
-      rect(width/6, height/4, width/1.5, height/3);
+      rect(width/5, height/3, width/1.66, height/3);
       textSize(width/100);
-      textAlign(LEFT);
+      textAlign(LEFT, CENTER);
       fill(0);
-      text(lore, width/6, height/4, width/1.5, height/3); 
+      text(lore, width/4.9, height/3, width/1.69, height/3); 
+      //text bar for planet name 
+      textAlign(CENTER, CENTER);
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/6, height/3, width/30, height/3);
+      rect(width/5+width/1.66,height/3, width/31, height/3);
+      triangle(width/3, height/4, width/6, height/3, width/3, height/3);
+      triangle(width/1.5, height/4, width/1.5, height/3, width/1.2, height/3);
+      rect(width/3, height/4, width/3, height/12);
+      textSize(width/30);
+      fill(0);
+      text(obj, width/3, height/4, width/3, height/12);
       textAlign(CENTER);
 
       //visuals for trade buttons 
@@ -77,63 +90,63 @@ class Starobj {
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/6, height/1.71, width/6, height/12);
+      rect(width/6, height/1.5, width/6, height/12);
       textSize(width/50);
       fill(0);
-      text("Sell Ore", width/6, height/1.71, width/6, height/12);
+      text("Sell Ore", width/6, height/1.5, width/6, height/12);
       //button2
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/3, height/1.71, width/6, height/12);
+      rect(width/3, height/1.5, width/6, height/12);
       textSize(width/50);
       fill(0);
-      text("Sell Data", width/3, height/1.71, width/6, height/12);
+      text("Sell Data", width/3, height/1.5, width/6, height/12);
       //button3
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/2, height/1.71, width/6, height/12);
+      rect(width/2, height/1.5, width/6, height/12);
       textSize(width/50);
       fill(0);
-      text("Buy Health", width/2, height/1.71, width/6, height/12);
+      text("Repair", width/2, height/1.5, width/6, height/12);
       //button4
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/1.5, height/1.71, width/6, height/12);
+      rect(width/1.5, height/1.5, width/6, height/12);
       textSize(width/50);
       fill(0);
-      text("Buy Energy", width/1.5, height/1.71, width/6, height/12);
+      text("Recharge", width/1.5, height/1.5, width/6, height/12);
       textAlign(CENTER);
     }
 
     //actual buttons 
     //button 1(sell ore)
-    if (objTrade && objUsed && playerOre > 10 && mouseX >= width/6 && mouseX <= (width/6 + width/6) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerOre = playerOre - 10;
-      playerCash = playerCash + _O;
+    if (objTrade && objUsed && Player.Ore > 10 && mouseX >= width/6 && mouseX <= (width/6 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Ore = Player.Ore - 10;
+      Player.Cash = Player.Cash + _O;
       //resets objUsed to false
       objUsed = false;
     }
     //button 2(sell data)
-    if (objTrade && objUsed && playerData > 5 && mouseX >= width/3 && mouseX <= (width/3 + width/6) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerData = playerData - 5;
-      playerCash = playerCash + _D;
+    if (objTrade && objUsed && Player.Data > 5 && mouseX >= width/3 && mouseX <= (width/3 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Data = Player.Data - 5;
+      Player.Cash = Player.Cash + _D;
       //resets objUsed to false
       objUsed = false;
     }
     //button 3(buy health)
-    if (objTrade && objUsed && playerCash > 2 && playerHealth < 100 && mouseX >= width/2 && mouseX <= (width/2 + width/6) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerHealth = playerHealth + 2;
-      playerCash = playerCash - _H;
+    if (objTrade && objUsed && Player.Cash > _H && Player.Health < 100 && mouseX >= width/2 && mouseX <= (width/2 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Health = Player.Health + 2;
+      Player.Cash = Player.Cash - _H;
       //resets objUsed to false
       objUsed = false;
     }
     //button 4(buy energy)
-    if (objTrade && objUsed && playerCash > 2 && playerEnergy < 100 && mouseX >= width/1.5 && mouseX <= (width/1.5 + width/6) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerEnergy = playerEnergy + 2;
-      playerCash = playerCash - _E;
+    if (objTrade && objUsed && Player.Cash > _E && Player.Energy < 100 && mouseX >= width/1.5 && mouseX <= (width/1.5 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Energy = Player.Energy + 2;
+      Player.Cash = Player.Cash - _E;
       //resets objUsed to false
       objUsed = false;
     }
@@ -144,8 +157,8 @@ class Starobj {
   }
 
   //code that allows for energy to be exchanged for resources on planets 
-  void objUse(float _E1, float _O, float _E2, float _D, String lore) {
-    if (mousePressed && playerX >= objX && playerX <= (objX + objW) && playerY >= objY && playerY <= (objY + objH)) {
+  void objUse(float _E1, float _O, float _E2, float _D, String obj, String lore) {
+    if (mousePressed && Player.X >= objX && Player.X <= (objX + objW) && Player.Y >= objY && Player.Y <= (objY + objH)) {
       objMD = true;
       objUsed = false;
     }
@@ -154,11 +167,24 @@ class Starobj {
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#818181);
-      rect(width/6, height/4, width/1.5, height/3);
+      rect(width/5, height/3, width/1.66, height/3);
       textSize(width/100);
-      textAlign(LEFT);
+      textAlign(LEFT, CENTER);
       fill(0);
-      text(lore, width/6, height/4, width/1.5, height/3);
+      text(lore, width/4.9, height/3, width/1.69, height/3); 
+      //text bar for planet name 
+      textAlign(CENTER, CENTER);
+      stroke(#4B4A4A);
+      strokeWeight(2);
+      fill(#767675);
+      rect(width/6, height/3, width/30, height/3);
+      rect(width/5+width/1.66,height/3, width/31, height/3);
+      triangle(width/3, height/4, width/6, height/3, width/3, height/3);
+      triangle(width/1.5, height/4, width/1.5, height/3, width/1.2, height/3);
+      rect(width/3, height/4, width/3, height/12);
+      textSize(width/30);
+      fill(0);
+      text(obj, width/3, height/4, width/3, height/12);
       textAlign(CENTER);
 
       //visuals for mine/data buttons 
@@ -168,33 +194,33 @@ class Starobj {
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/6, height/1.71, width/3, height/12);
+      rect(width/6, height/1.5, width/3, height/12);
       textSize(width/50);
       fill(0);
-      text("Mine", width/6, height/1.71, width/3, height/12);
+      text("Mine", width/6, height/1.5, width/3, height/12);
       //button2
       stroke(#4B4A4A);
       strokeWeight(2);
       fill(#767675);
-      rect(width/2, height/1.71, width/3, height/12);
+      rect(width/2, height/1.5, width/3, height/12);
       textSize(width/50);
       fill(0);
-      text("Research", width/2, height/1.71, width/3, height/12);
+      text("Research", width/2, height/1.5, width/3, height/12);
       textAlign(CENTER);
     }
 
     //actual buttons 
     //button 1(mine ore)
-    if (objMD && objUsed && playerEnergy > 2 && mouseX >= width/6 && mouseX <= (width/6 + width/3) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerEnergy = playerEnergy - _E1;
-      playerOre = playerOre + _O;
+    if (objMD && objUsed && Player.Energy > _E1 && mouseX >= width/6 && mouseX <= (width/6 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Energy = Player.Energy - _E1;
+      Player.Ore = Player.Ore + _O;
       //resets objUsed to false
       objUsed = false;
     }
     //button 2(get data)
-    if (objMD && objUsed && playerEnergy > 2 && mouseX >= width/2 && mouseX <= (width/2 + width/3) && mouseY >= height/1.71 && mouseY <= (height/1.71 + height/12)) {
-      playerEnergy = playerEnergy - _E2;
-      playerData = playerData + _D;
+    if (objMD && objUsed && Player.Energy > _E2 && mouseX >= width/2 && mouseX <= (width/2 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+      Player.Energy = Player.Energy - _E2;
+      Player.Data = Player.Data + _D;
       //resets objUsed to false
       objUsed = false;
     }
