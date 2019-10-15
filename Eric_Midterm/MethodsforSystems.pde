@@ -60,10 +60,8 @@ void solSystem() {
   sun.contactStar();
 
   //Create Planets and Ships
-  Homeworld.obj("Homeworld.png");
   Homeworld.objDraw();
 
-  Dusteye.obj("Dustedeye.png");
   Dusteye.objDraw();
 
   //UI
@@ -102,14 +100,12 @@ void bazelgeuseSystem() {
   bazelgeuse.contactStar();
 
   //Create Planets and Ships
-  RGasgiant.obj("RGasgiant.png");
   RGasgiant.objDraw();
 
-  RRuinedplanet.obj("RRuinedplanet.png");
   RRuinedplanet.objDraw();
 
   //Asteroids
-  if (frameCount %180 == 0) {
+  if (frameCount %120 == 0) {
     Asteroids.add(new StarDebris(int(random(width/700, width/500)), int(random(width/75, width/50))));
   }
   for (int i = 0; i <  Asteroids.size(); i++) {
@@ -119,7 +115,9 @@ void bazelgeuseSystem() {
     if ( Asteroids.get(i).OutOfBounds()) {
       Asteroids.remove(i);
     }
-    if(key == '1'){Asteroids.remove(i);}
+    if (key == '1') {
+      Asteroids.remove(i);
+    }
   }
 
   //UI
@@ -158,10 +156,8 @@ void drakeSystem() {
   whiteS.contactStar();
 
   //Create Planets and Ships
-  Drake.obj("Drake.png");
   Drake.objDraw();
 
-  Cargoship.obj("Cargoship.png");
   Cargoship.objDraw();
   Cargoship.objMove(0, -width/1000);
 
@@ -199,13 +195,10 @@ void archwaySystem() {
   cStar.contactStar();
 
   //Create Planets and Ships
-  Cworld.obj("Cworld.png");
   Cworld.objDraw();
 
-  Greengas.obj("Greengas.png");
   Greengas.objDraw();
 
-  Lavaland.obj("Lavaland.png");
   Lavaland.objDraw();
 
   //UI
@@ -249,12 +242,26 @@ void eleeveSystem() {
   evelyn.contactStar();
 
   //Create Planets and Ships
-  Dune.obj("Dune.png");
   Dune.objDraw();
 
-  Luxship.obj("Luxship.png");
   Luxship.objDraw();
   Luxship.objMove(-width/1200, 0);
+
+  //Asteroids
+  if (frameCount %360 == 0) {
+    Asteroids.add(new StarDebris(int(random(width/700, width/650)), int(random(width/100, width/75))));
+  }
+  for (int i = 0; i <  Asteroids.size(); i++) {
+    Asteroids.get(i).DrawAsteroid();
+    Asteroids.get(i).MoveAsteroid();
+    Asteroids.get(i).ContactAsteroid();
+    if ( Asteroids.get(i).OutOfBounds()) {
+      Asteroids.remove(i);
+    }
+    if (key == '1') {
+      Asteroids.remove(i);
+    }
+  }
 
   //UI
   Player.playerUI();
@@ -265,8 +272,8 @@ void eleeveSystem() {
 
   //Menus
   Luxship.objTradeWith(2, 35, 50, 50, "Royal Yacht", "A Royal Yacht travels the central system viewing the same majestic sites as you. Its magnificent shape begs you to make contact. You contact the ship and because of regulations they begrudgingly follow they offer to trade with and replenish your resources. They will buy ore for you only at the most absurdly low of prices, furthermore the cost of its energy and repairs is non economical to say the least, in spite of this the yacht owner values data and offers an unbeatable price for it. Secondly, they tell you the cost for transactions in standard units, 2 Cash for 10 Ore, 35 Cash for 5 Data, 50 Cash for 2% Repair, and 50 Cash for 2% Recharge. Finally, they tell you that you may move at any time to leave the trade menu.");
-  
-  Dune.objUse(2, random(15, 20), 2, random(.25, 3.5),"Dune", "Dune, a planet scorched and turned mostly to sand by the twin stars it orbits. The planet has average amounts of easily accessible ore, but little research opportunities. After some scans your ship informs you that you can mine and research the planet. For 2% energy you could get an average amount of ore; however, expending 2% energy is not likely to not yield any results. If neither of these options intrigue you, you can move to leave at any time. ");
+
+  Dune.objUse(2, random(15, 20), 2, random(.25, 3.5), "Dune", "Dune, a planet scorched and turned mostly to sand by the twin stars it orbits. The planet has average amounts of easily accessible ore, but little research opportunities. After some scans your ship informs you that you can mine and research the planet. For 2% energy you could get an average amount of ore; however, expending 2% energy is not likely to not yield any results. If neither of these options intrigue you, you can move to leave at any time. ");
 }
 
 //Gregory System
@@ -292,13 +299,10 @@ void gregorySystem() {
   greg.contactStar();
 
   //Create Planets and Ships
-  Frosty.obj("Frosty.png");
   Frosty.objDraw();
 
-  Metro.obj("Metro.png");
   Metro.objDraw();
 
-  Havock.obj("Havock.png");
   Havock.objDraw();
 
   //Asteroids
@@ -312,7 +316,9 @@ void gregorySystem() {
     if ( Asteroids.get(i).OutOfBounds()) {
       Asteroids.remove(i);
     }
-    if(key == '1'){Asteroids.remove(i);}
+    if (key == '1') {
+      Asteroids.remove(i);
+    }
   }
 
   //UI
@@ -386,7 +392,7 @@ void decaySystem() {
   blackHole1.contactStar();
 
   //Asteroids
-  if (frameCount %180 == 0) {
+  if (frameCount %120 == 0) {
     Asteroids.add(new StarDebris(int(random(width/700, width/500)), int(random(width/75, width/50))));
   }
   for (int i = 0; i <  Asteroids.size(); i++) {
@@ -396,7 +402,9 @@ void decaySystem() {
     if ( Asteroids.get(i).OutOfBounds()) {
       Asteroids.remove(i);
     }
-     if(key == '1'){Asteroids.remove(i);}
+    if (key == '1') {
+      Asteroids.remove(i);
+    }
   }
 
   //UI

@@ -56,22 +56,22 @@ void setup() {
 
   //call starObj (planets, shit, etc)
   //inhabited 
-  Homeworld = new Starobj(width/2, height/3, width/21, width/21);
-  Drake = new Starobj(width/2, height/1.7, width/17, width/17);
-  Cworld = new Starobj(width/2, height/1.8, width/24, width/24);
-  Metro = new Starobj(width/3, height/2, width/22, width/22);
+  Homeworld = new Starobj(width/2, height/3, width/21, width/21,"Homeworld.png");
+  Drake = new Starobj(width/2, height/1.7, width/17, width/17, "Drake.png");
+  Cworld = new Starobj(width/2, height/1.8, width/24, width/24, "Cworld.png");
+  Metro = new Starobj(width/3, height/2, width/22, width/22, "Metro.png");
   //spaceships
-  Luxship = new Starobj(width/1.2, height/1.6, width/10, height/13);
-  Cargoship = new Starobj(width/5, height/1.5, width/30, height/8);
+  Luxship = new Starobj(width/1.2, height/1.6, width/10, height/13, "Luxship.png");
+  Cargoship = new Starobj(width/5, height/1.5, width/30, height/8, "Cargoship.png");
   ////minable(Ore) researchable(data)
-  RGasgiant = new Starobj(width/1.5, height/4, width/13, width/13);
-  Greengas = new Starobj(width/5, height/2, width/13, width/13);
-  Havock = new Starobj(width/1.6, height/3, width/20, width/20);
-  Lavaland = new Starobj(width/1.5, height/5, width/27, width/27);
-  Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25);
-  Dune = new Starobj(width/1.2, height/7, width/24, width/24);
-  Frosty = new Starobj(width/8, height/1.4, width/25, width/25);
-  RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24);
+  RGasgiant = new Starobj(width/1.5, height/4, width/13, width/13, "RGasgiant.png");
+  Greengas = new Starobj(width/5, height/2, width/13, width/13, "Greengas.png");
+  Havock = new Starobj(width/1.6, height/3, width/20, width/20, "Havock.png");
+  Lavaland = new Starobj(width/1.5, height/5, width/27, width/27, "Lavaland.png");
+  Dusteye = new Starobj(width/1.6, height/1.5, width/25, width/25, "Dustedeye.png");
+  Dune = new Starobj(width/1.2, height/7, width/24, width/24, "Dune.png");
+  Frosty = new Starobj(width/8, height/1.4, width/25, width/25, "Frosty.png");
+  RRuinedplanet = new Starobj(width/3, height/1.2, width/24, width/24, "RRuinedplanet.png");
 
   //player starting position in system 
   Player.X = width/2;

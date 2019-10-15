@@ -11,19 +11,15 @@ class Starobj {
   boolean objMD = false;
 
   //constructor 
-  Starobj( float _X, float _Y, int _W, int _H) {
+  Starobj( float _X, float _Y, int _W, int _H, String _im) {
     objX = _X;
     objY = _Y;
     objW = _W;
     objH = _H;
+    placeHolder = loadImage(_im);
   }
 
   //methods
-
-  //method for determining the image used for an object 
-  void obj(String _im) {
-    placeHolder = loadImage(_im);
-  }
 
   //determines position and size of an object
   void objDraw() {

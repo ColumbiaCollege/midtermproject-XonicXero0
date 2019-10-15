@@ -20,16 +20,13 @@ class StarDebris {
     angle      = atan2(desiredY - yPos, desiredX - xPos);
     speed      = _S;
     aSize      = _AS;
+    placeHolder = loadImage("Asteroid.png");
   }
 
   //Creating the Asteroid
   void DrawAsteroid() {
-    //image removed for framerate issues
-    //placeHolder = loadImage("Asteroid.png");
-    //placeHolder.resize(aSize, aSize);
-    //image(placeHolder, xPos, yPos);
-    fill(#EABB80);
-    ellipse(xPos,yPos,aSize,aSize);
+    placeHolder.resize(aSize, aSize);
+    image(placeHolder, xPos, yPos);
   }
 
   //Asteroid Moving 
