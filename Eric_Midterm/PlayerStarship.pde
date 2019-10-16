@@ -13,13 +13,18 @@ class Starship {
   float Cash;
   float Ore;
   float Data;
+  //player model
+  PImage Playership; 
+  int ShipSize;
   //booleans for ship movement
   boolean thrust = false;
-  boolean boost = false;
+  boolean boost  = false;
 
 
   //Constructor 
   Starship() {
+    Playership = loadImage("Playership1L.png"); 
+    ShipSize = width/50;
   }
 
   //methods 
@@ -41,13 +46,13 @@ class Starship {
     }
 
     //code that makes the ship move to the mouse position when thrusters are activated
-    //weird pausing issue && abs( targetX - Player.X ) > 1 && abs( targetY - Player.Y ) > 1 
     if (thrust) {
       Player.X += Player.Speed*cos(a);
       Player.Y += Player.Speed*sin(a);
     }
 
-    //code that makes it so thrust does not appear when destination isnt reached (not working 100%)
+    //code that makes it so thrust does not appear when destination isnt reached 
+    //credit to drake for help
     if ( abs( mouseX - Player.X ) < 10 && abs( mouseY - Player.Y ) < 10  ) {
       thrust = false;
     }
@@ -127,6 +132,25 @@ class Starship {
 
     strokeWeight(0);
     stroke(0);
+
+    //making sure Player.Health is not above max ammount
+    if (Player.Health > 100) {
+      Player.Health = 100;
+    }
+    //making sure Player.Energy is not above max ammount
+    if (Player.Energy > 100) {
+      Player.Energy = 100;
+    }
+    //gameover state
+    if (Player.Health <= 0) {
+      Player.Health = 0;
+      systems = 10;
+    }
+    //energy over state
+    if (Player.Energy <= 0) {
+      Player.Energy = 0;
+      Player.Health = Player.Health - 0.1;
+    }
   }
 
   void playerDraw() {
@@ -137,50 +161,43 @@ class Starship {
     a = atan2(mouseY-Player.Y, mouseX-Player.X);
     rotate(a);
 
-    //modes for players starship drawing
-    ellipseMode(CENTER);
-    noStroke();
-
-    //fuel tanks
-    fill(#A74507);
-    ellipse(0, 0, 23, 15);
-
-    //starship body
-    fill(#DEDEDE);
-    triangle(-7, -7, -7, 7, 25, 0);
-    triangle(-7, -12, -7, 12, 7, 0);
-    triangle(-7, -12, -7, 12, -9, 0);
-
     //thrust if ship is moving 
     if (thrust) {
       fill(#FF9864);
-      triangle(-12, -7, -12, 7, -25, 0);
+      stroke(#FF9864);
+      triangle(-18, -7, -18, 7, -32, 0);
       fill(#F08C22);
-      triangle(-11, -5, -11, 5, -23, 0);
+      stroke(#F08C22);
+      triangle(-18, -5, -18, 5, -23, 0);
     }
 
     //super thrust is the ship is boosting 
     if (thrust && boost) {
       fill(#CEFBFF);
-      triangle(-12, -7, -12, 7, -30, 0);
+      stroke(#CEFBFF);
+      triangle(-18, -7, -18, 7, -38, 0);
+      stroke(#83F4FF);
       fill(#83F4FF);
-      triangle(-11, -5, -11, 5, -25, 0);
+      triangle(-18, -5, -18, 5, -25, 0);
     }
 
-    //thruster
-    fill(#2C2C2C);
-    triangle(-6, -7, -14, -8, -14, 8);
-    triangle(-6, 7, -14, -8, -14, 8);
+    imageMode(CENTER);
+    Playership.resize(ShipSize, ShipSize);
+    image(Playership, 0, 0);
 
-    //cockpit
-    fill(#C1C106);
-    triangle(5, 0, -4, -4, -4, 4);
-
-    //resets modes
-    ellipseMode(CORNERS);
-    stroke(0);
+    imageMode(CORNER);
 
     popMatrix();
-    //println(Player.X);
+  }
+
+  //player takes damage when hitting Asteroid
+  //credit to drake for help
+  void ContactAsteroid(ArrayList<StarDebris> asteroids) {
+    for (int i = 0; i < asteroids.size(); i++ ) {
+      if (dist(X, Y, asteroids.get(i).xPos, asteroids.get(i).yPos) <= asteroids.get(i).dia/2+ShipSize/3) {
+        Health -= 10;
+        asteroids.remove(i);
+      }
+    }
   }
 }

@@ -9,23 +9,23 @@ class StarDebris {
   float desiredY;
   float angle;
   int speed;
-  int aSize;
+  int dia;
 
   //constructor 
-  StarDebris(int _S, int _AS) {
+  StarDebris(int _S, int _D) {
     xPos       = -20;
     yPos       = random(0, height);
     desiredX   = width + 20;
     desiredY   = random(0, height);
     angle      = atan2(desiredY - yPos, desiredX - xPos);
     speed      = _S;
-    aSize      = _AS;
+    dia        = _D;
     placeHolder = loadImage("Asteroid.png");
   }
 
   //Creating the Asteroid
   void DrawAsteroid() {
-    placeHolder.resize(aSize, aSize);
+    placeHolder.resize(dia, dia);
     image(placeHolder, xPos, yPos);
   }
 
@@ -33,15 +33,6 @@ class StarDebris {
   void MoveAsteroid() {
     xPos += speed*cos(angle);
     yPos += speed*sin(angle);
-  }
-  
-    //player takes damage when hitting Asteroid
-  void ContactAsteroid() {
-    float disX = xPos - Player.X;
-    float disY = yPos - Player.Y;
-    if (sqrt(sq(disX) + sq(disY)) < aSize/2 ) {
-      Player.Health = Player.Health - 1;
-    }
   }
 
   //Out of Bounds Condition 

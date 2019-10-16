@@ -30,18 +30,18 @@ void keyReleased() {
 
 //clicking on planets when player is on them 
 void mouseClicked() {
-  Homeworld.objUsed = true;
-  RGasgiant.objUsed = true;
-  RRuinedplanet.objUsed = true;
-  Drake.objUsed = true;
-  Cargoship.objUsed = true;
-  Lavaland.objUsed = true;
-  Dusteye.objUsed = true;
-  Greengas.objUsed = true;
-  Cworld.objUsed = true;
-  Dune.objUsed = true;
-  Luxship.objUsed = true;
-  Frosty.objUsed = true;
-  Metro.objUsed = true;
-  Havock.objUsed = true;
+  Homeworld.objInteract = true;
+  RGasgiant.objInteract = true;
+  RRuinedplanet.objInteract = true;
+  Drake.objInteract = true;
+  Cargoship.objInteract = true;
+  Lavaland.objInteract = true;
+  Dusteye.objInteract = true;
+  Greengas.objInteract = true;
+  Cworld.objInteract = true;
+  Dune.objInteract = true;
+  Luxship.objInteract = true;
+  Frosty.objInteract = true;
+  Metro.objInteract = true;
+  Havock.objInteract = true;
 }

@@ -2,20 +2,20 @@ class Starobj {
 
   //variables
   PImage placeHolder;
-  float objX;
-  float objY;
+  float xPos;
+  float yPos;
   int objW;
   int objH;
-  boolean objUsed = false;
+  boolean objInteract  = false;
   boolean objTrade = false;
-  boolean objMD = false;
+  boolean objMD    = false;
 
   //constructor 
   Starobj( float _X, float _Y, int _W, int _H, String _im) {
-    objX = _X;
-    objY = _Y;
-    objW = _W;
-    objH = _H;
+    xPos        = _X;
+    yPos        = _Y;
+    objW        = _W;
+    objH        = _H;
     placeHolder = loadImage(_im);
   }
 
@@ -24,35 +24,35 @@ class Starobj {
   //determines position and size of an object
   void objDraw() {
     placeHolder.resize(objW, objH);
-    image(placeHolder, objX, objY);
+    image(placeHolder, xPos, yPos);
   }
 
   //allows for an object (like a spaceship) to move
   void objMove(float xS, float yS) {
-    objX = objX + xS;
-    objY = objY + yS;
+    xPos = xPos + xS;
+    yPos = yPos + yS;
 
     //makes ships reappear if offscreen
 
-    if (objY < -400) {
-      objY = height + 400;
+    if (yPos < -400) {
+      yPos = height + 400;
     }
-    if (objY > height + 400) {
-      objY = -400;
+    if (yPos > height + 400) {
+      yPos = -400;
     }
-    if (objX < -400) {
-      objX = width + 400;
+    if (xPos < -400) {
+      xPos = width + 400;
     }
-    if (objX > width + 400) {
-      objX = -400;
+    if (xPos > width + 400) {
+      xPos = -400;
     }
   }
 
   //code that allows you to trade with planets 
   void objTradeWith(float _O, float _D, float _H, float _E, String obj, String lore) {
-    if (mousePressed && Player.X >= objX && Player.X <= (objX + objW) && Player.Y >= objY && Player.Y <= (objY + objH)) {
+    if (mousePressed && Player.X >= xPos && Player.X <= (xPos + objW) && Player.Y >= yPos && Player.Y <= (yPos + objH)) {
       objTrade = true;
-      objUsed = false;
+      objInteract = false;
     }
     if (objTrade) {
      //text bar for planet info
@@ -119,32 +119,32 @@ class Starobj {
 
     //actual buttons 
     //button 1(sell ore)
-    if (objTrade && objUsed && Player.Ore > 10 && mouseX >= width/6 && mouseX <= (width/6 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objTrade && objInteract && Player.Ore > 10 && mouseX >= width/6 && mouseX <= (width/6 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Ore = Player.Ore - 10;
       Player.Cash = Player.Cash + _O;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
     //button 2(sell data)
-    if (objTrade && objUsed && Player.Data > 5 && mouseX >= width/3 && mouseX <= (width/3 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objTrade && objInteract && Player.Data > 5 && mouseX >= width/3 && mouseX <= (width/3 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Data = Player.Data - 5;
       Player.Cash = Player.Cash + _D;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
     //button 3(buy health)
-    if (objTrade && objUsed && Player.Cash > _H && Player.Health < 100 && mouseX >= width/2 && mouseX <= (width/2 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objTrade && objInteract && Player.Cash > _H && Player.Health < 100 && mouseX >= width/2 && mouseX <= (width/2 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Health = Player.Health + 2;
       Player.Cash = Player.Cash - _H;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
     //button 4(buy energy)
-    if (objTrade && objUsed && Player.Cash > _E && Player.Energy < 100 && mouseX >= width/1.5 && mouseX <= (width/1.5 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objTrade && objInteract && Player.Cash > _E && Player.Energy < 100 && mouseX >= width/1.5 && mouseX <= (width/1.5 + width/6) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Energy = Player.Energy + 2;
       Player.Cash = Player.Cash - _E;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
 
     if (keyPressed) {
@@ -153,10 +153,10 @@ class Starobj {
   }
 
   //code that allows for energy to be exchanged for resources on planets 
-  void objUse(float _E1, float _O, float _E2, float _D, String obj, String lore) {
-    if (mousePressed && Player.X >= objX && Player.X <= (objX + objW) && Player.Y >= objY && Player.Y <= (objY + objH)) {
+  void objMineOrResearch(float _E1, float _O, float _E2, float _D, String obj, String lore) {
+    if (mousePressed && Player.X >= xPos && Player.X <= (xPos + objW) && Player.Y >= yPos && Player.Y <= (yPos + objH)) {
       objMD = true;
-      objUsed = false;
+      objInteract = false;
     }
     if (objMD) {
       //text bar for planet info
@@ -207,18 +207,18 @@ class Starobj {
 
     //actual buttons 
     //button 1(mine ore)
-    if (objMD && objUsed && Player.Energy > _E1 && mouseX >= width/6 && mouseX <= (width/6 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objMD && objInteract && Player.Energy > _E1 && mouseX >= width/6 && mouseX <= (width/6 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Energy = Player.Energy - _E1;
       Player.Ore = Player.Ore + _O;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
     //button 2(get data)
-    if (objMD && objUsed && Player.Energy > _E2 && mouseX >= width/2 && mouseX <= (width/2 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
+    if (objMD && objInteract && Player.Energy > _E2 && mouseX >= width/2 && mouseX <= (width/2 + width/3) && mouseY >= height/1.5 && mouseY <= (height/1.5 + height/12)) {
       Player.Energy = Player.Energy - _E2;
       Player.Data = Player.Data + _D;
-      //resets objUsed to false
-      objUsed = false;
+      //resets objInteract to false
+      objInteract = false;
     }
 
     if (keyPressed) {
