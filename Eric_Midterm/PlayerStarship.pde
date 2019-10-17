@@ -52,8 +52,7 @@ class Starship {
     }
 
     //code that makes it so thrust does not appear when destination isnt reached 
-    //credit to drake for help
-    if ( abs( mouseX - Player.X ) < 10 && abs( mouseY - Player.Y ) < 10  ) {
+    if (dist(X, Y, mouseX, mouseY) <= ShipSize/4 ) {
       thrust = false;
     }
 

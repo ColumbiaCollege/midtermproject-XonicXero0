@@ -4,7 +4,7 @@
 //Declare Player's Starship
 Starship Player;
 
-//Arraylist for asteroids/star impacts
+//Arraylist for asteroids
 ArrayList<StarDebris> asteroids   = new ArrayList<StarDebris>(); 
 
 //declare other shit
